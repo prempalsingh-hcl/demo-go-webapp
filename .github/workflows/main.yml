@@ -1,2 +1,4 @@
 - name: Deploy VM from vSphere Content Library
+  # You may pin to the exact commit or the version.
+  # uses: lamw/deploy-vm-from-content-library-action@fb7e7f880ea5d4316607f7819e582b8ad4c51698
   uses: lamw/deploy-vm-from-content-library-action@0.1
