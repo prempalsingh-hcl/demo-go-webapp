@@ -1,0 +1,7 @@
+name: Deploy VM from vSphere Content Library
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
