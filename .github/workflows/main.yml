@@ -1,4 +1,21 @@
-- name: Deploy VM from vSphere Content Library
-  # You may pin to the exact commit or the version.
-  # uses: lamw/deploy-vm-from-content-library-action@fb7e7f880ea5d4316607f7819e582b8ad4c51698
-  #uses: lamw/deploy-vm-from-content-library-action@0.1
+workflow "Deploy WebApp VM" {
+  resolves = ["docker://lamw/create-vsphere-tag"]
+  on = "push"
+}
+
+action "docker://lamw/create-vsphere-tag" {
+  uses = "docker://lamw/deploy-vm-from-content-library"
+  secrets = ["GOVC_PASSWORD"]
+  env = {
+    GOVC_URL = "https://<vcenter>/sdk"
+    GOVC_USERNAME = "cloudadmin@vmc.local"
+    GOVC_DATACENTER = "SDDC-Datacenter"
+    GOVC_NETWORK = "sddc-cgw-network-1"
+    GOVC_DATASTORE = "WorkloadDatastore"
+    GOVC_FOLDER = "Workloads"
+    GOVC_RESOURCE_POOL = "Compute-ResourcePool"
+    LIBRARY_NAME = "Customer[0]"
+    LIBRARY_TEMPLATE = "WebApp-Template"
+    VM_NAME = "Validate-WebApp-00"
+  }
+}
